@@ -1,0 +1,38 @@
+<configuration>
+  <appender name="STDERR"
+  class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <target>System.err</target>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  <root level="TRACE"> <!-- keep root at DEBUG so DynamicThresholdFilter works -->
+    <appender-ref ref="STDERR" />
+  </root>
+  <turboFilter class="ch.qos.logback.classic.turbo.DynamicThresholdFilter">
+    <Key>log-level</Key>
+    <DefaultThreshold>${LOG_LEVEL:-WARN}</DefaultThreshold>
+    <MDCValueLevelPair>
+      <value>ERROR</value>
+      <level>ERROR</level>
+    </MDCValueLevelPair>
+    <MDCValueLevelPair>
+      <value>WARN</value>
+      <level>WARN</level>
+    </MDCValueLevelPair>
+    <MDCValueLevelPair>
+      <value>INFO</value>
+      <level>INFO</level>
+    </MDCValueLevelPair>
+    <MDCValueLevelPair>
+      <value>DEBUG</value>
+      <level>DEBUG</level>
+    </MDCValueLevelPair>
+    <MDCValueLevelPair>
+      <value>TRACE</value>
+      <level>TRACE</level>
+    </MDCValueLevelPair>
+  </turboFilter>
+</configuration>
